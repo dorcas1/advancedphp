@@ -1,5 +1,7 @@
 <?php
 
+    include('includes/function.php');
+
     define('MAX_FILE_SIZE', '2097152');
     $ext = ['image/jpg', 'image/png', 'image/jpeg'];
 
@@ -28,12 +30,18 @@
         $filename = $rnd.$strip_name;
         $destination = './uploads/'.$filename; 
 
-        if(!move_uploaded_file($_FILES['pics'] ['tmp_name'], $destination)) {
+        /*if(!move_uploaded_file($_FILES['pics'] ['tmp_name'], $destination)) {
             $errors[] = "File not Uploaded";
         }
+*/
 
         if(empty($errors)) {
-            echo "File upload successful";
+            $msg = uploadFile($_FILES, 'pics', 'uploads/');
+
+            if($msg[0]) {
+                echo $msg[0];
+            }
+           // echo "File upload successful";
         }else {
             foreach ($errors as $err) {
                 echo $err .'</br>';
