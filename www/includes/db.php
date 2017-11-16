@@ -1,6 +1,6 @@
 <?php
 
-    define('DBNAME', 'classApp');
+    define('DBNAME', 'store');
     define('DBUSER', 'root');
     define('DBPASS', 'dorcas');
 
