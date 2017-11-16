@@ -5,11 +5,12 @@
       
       include ('includes/header.php');
       include ('includes/db.php');
+      include ('includes/function.php');
       $errors = [];
     if (array_key_exists('register', $_POST)) {
        
 
-        if (empty($POST['fname'])) {
+        if (empty($_POST['fname'])) {
             $errors['fname'] = "please enter your firstname";
         }
 
@@ -18,7 +19,7 @@
         }
 
         if(empty($_POST['email'])) {
-            $errors[email] = "please enter your email";
+            $errors['email'] = "please enter your email";
         }
 
         if(empty($_POST['password'])) {
@@ -26,15 +27,19 @@
         }
         if(empty($_POST['pword'])) {
             $errors['pword'] = "please confirm your password";
-        }
-            if (empty($errors)) {
-                $clean = array_map('trim', $_POST);
 
-                $hash = password_hash($clean['password'], PASSWORD_BCRYPT);
+
+        }
+           if (empty($errors)) {
+                $clean = array_map('trim', $_POST);
+                doAdminRegister($conn, $clean);
+
+              /*  $hash = password_hash($clean['password'], PASSWORD_BCRYPT);
 
                 $stmt = $conn->prepare("INSERT INTO admin(firstName, lastName, email,
                          hash) VALUES(:f, :l, :e, :h)");
 
+                print_r($stmt);
                 $data = [ 
                     ":f" => $clean['fname'],
                     ":l" => $clean['lname'],
@@ -42,7 +47,7 @@
                     ":h" => $hash
               ];
 
-              $stmt->execute($data);
+              $stmt->execute($data); */
             }        
 
     }
