@@ -22,6 +22,10 @@
             $errors['email'] = "please enter your email";
         }
 
+        if(doesEmailExist($conn, $_POST ['email'])) {
+            $errors['email'] = "Email already exists";
+        }
+
         if(empty($_POST['password'])) {
             $errors['password'] = "please enter your password";
         }
@@ -31,7 +35,9 @@
 
         }
            if (empty($errors)) {
+
                 $clean = array_map('trim', $_POST);
+               
                 doAdminRegister($conn, $clean);
 
               /*  $hash = password_hash($clean['password'], PASSWORD_BCRYPT);
@@ -60,13 +66,16 @@
 		<hr>
 		<form id="register"  action ="register.php" method ="POST">
 			<div>
-                <?php if (isset($errors['fname'])) {echo '<p class = "err">'.$errors['fname'].'</p>'; } 
+                <?php 
+                    $data = displayErrors($errors, 'fname');
+                     echo $data;
                 ?>
 				<label>first name:</label>
 				<input type="text" name="fname" placeholder="first name">
 			</div>
 			<div>
-                <?php if (isset($errors['lname'])) {echo '<p class = "err">'.$errors['lname'].'</p>'; } 
+                <?php $err = displayErrors($errors, 'lname'); 
+                echo $err; 
                 ?>
             
                 <label>last name:</label>	
