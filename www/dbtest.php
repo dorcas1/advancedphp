@@ -1,5 +1,7 @@
 <?php
+        session_start();
 
+        echo "Hello, ".$_SESSION['name']
     include('includes/function.php');
 
     define('MAX_FILE_SIZE', '2097152');
